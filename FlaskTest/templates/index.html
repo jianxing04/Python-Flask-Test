@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客平台主页面</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        nav {
+            background-color: #444;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 10px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        .welcome-message {
+            margin-right: 20px;
+        }
+        .logout-button {
+            background-color: transparent;
+            border: none;
+            color: red;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>欢迎来到博客平台</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#">首页</a></li>
+            <li><a href="#">文章列表</a></li>
+            <li><a href="#">关于我们</a></li>
+        </ul>
+        {% if username %}
+            <div class="welcome-message">
+                欢迎您，{{ username }}
+                <form action="{{ url_for('logout') }}" method="post">
+                    <button type="submit" class="logout-button">退出登录</button>
+                </form>
+            </div>
+        {% endif %}
+    </nav>
+    <main>
+        <h2>最新文章</h2>
+        <p>这里将显示最新的博客文章列表。</p>
+    </main>
+    <footer>
+        &copy; 2024 博客平台版权所有
+    </footer>
+</body>
+</html>

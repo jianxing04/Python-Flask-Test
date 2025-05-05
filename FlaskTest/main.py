@@ -1,5 +1,5 @@
 import json
-from flask import Flask, render_template, request, flash, redirect, url_for
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 import os
 
 app = Flask(__name__)
@@ -20,7 +20,11 @@ users = load_users()
 
 @app.route('/')
 def index():
-    return render_template('login.html')
+    # 检查用户是否已经登录
+    if 'username' in session:
+        username = session['username']
+        return render_template('index.html', username=username)
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -33,7 +37,9 @@ def login():
         elif users[username] != password:
             flash("密码错误，请重新输入。")
         else:
-            return f"登录成功！欢迎你，{username}！"
+            # 登录成功，将用户名存入会话
+            session['username'] = username
+            return redirect(url_for('index'))
 
     return render_template('login.html')
 
@@ -55,6 +61,12 @@ def register():
             return redirect(url_for('login'))
 
     return render_template('register.html')
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    # 清除会话中的用户名，实现注销功能
+    session.pop('username', None)
+    return redirect(url_for('login'))
 
 if __name__ == '__main__':
     app.run(debug=True)
