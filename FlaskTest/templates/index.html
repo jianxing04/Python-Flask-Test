@@ -42,7 +42,7 @@
         .logout-button {
             background-color: transparent;
             border: none;
-            color: red;
+            color: red; /* 将按钮文字颜色设置为红色 */
             cursor: pointer;
             font-size: 16px;
         }
@@ -57,6 +57,12 @@
             position: fixed;
             bottom: 0;
             width: 100%;
+        }
+        .main-image {
+            display: block;
+            margin: 0 auto; /* 水平居中 */
+            max-width: 100%; /* 图片最大宽度为容器宽度 */
+            height: auto; /* 保持图片比例 */
         }
     </style>
 </head>
@@ -73,7 +79,7 @@
         {% if username %}
             <div class="welcome-message">
                 欢迎您，{{ username }}
-                <form action="{{ url_for('logout') }}" method="post">
+                <form action="{{ url_for('logout') }}" method="get">
                     <button type="submit" class="logout-button">退出登录</button>
                 </form>
             </div>
@@ -82,9 +88,10 @@
     <main>
         <h2>最新文章</h2>
         <p>这里将显示最新的博客文章列表。</p>
+        <img src="{{ url_for('static', filename='index_image.jpg') }}" alt="示例图片" class="main-image">
     </main>
     <footer>
-        &copy; 2024 博客平台版权所有
+        &copy; 2025 博客平台版权所有
     </footer>
 </body>
 </html>
